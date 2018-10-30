@@ -58,15 +58,15 @@ module PbJsonParser
     def parse_assoc(field)
       case field["label"]
       when 3  # label: LABEL_REPEATED
-        type = AST::Association::Type[:has_many]
+        kind = AST::Association::Kind[:has_many]
       else
-        type = AST::Association::Type[:has_one]
+        kind = AST::Association::Kind[:has_one]
       end
       class_name = field_message_type(field)
 
       assoc = AST::Association.new(
         name:       field["name"],
-        type:       type,
+        kind:       kind,
         class_name: class_name,
       )
     end

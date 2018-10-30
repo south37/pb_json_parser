@@ -1,19 +1,19 @@
 module PbJsonParser
   module AST
     class Association
-      Type = {
+      Kind = {
         has_one:  "has_one".freeze,
         has_many: "has_many".freeze,
       }.freeze
 
-      attr_reader :name, :type, :class_name
+      attr_reader :name, :kind, :class_name
 
       # @param [String] name
-      # @param [String] type
+      # @param [String] kind
       # @param [String] class_name
-      def initialize(name:, type:, class_name:)
+      def initialize(name:, kind:, class_name:)
         @name       = name
-        @type       = type
+        @kind       = kind
         @class_name = class_name
         validate!
       end
@@ -21,7 +21,7 @@ module PbJsonParser
       def to_h
         {
           name:       @name,
-          type:       @type,
+          kind:       @kind,
           class_name: @class_name,
         }
       end
@@ -29,8 +29,8 @@ module PbJsonParser
     private
 
       def validate!
-        if !Type.values.include?(@type)
-          raise "Invalid type: #{@type}"
+        if !Kind.values.include?(@kind)
+          raise "Invalid kind: #{@kind}"
         end
       end
     end

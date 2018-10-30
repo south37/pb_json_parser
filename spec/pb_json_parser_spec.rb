@@ -21,7 +21,7 @@ describe PbJsonParser do
           assocs: [
             {
               name:       "profile",
-              type:       "has_one",
+              kind:       "has_one",
               class_name: "Profile"
             }
           ]
@@ -40,21 +40,21 @@ describe PbJsonParser do
         {
           name: "User",
           fields: [
-            { name: "id",     type: "int64" },
-            { name: "number", type: "int32" },
-            { name: "admin",  type: "bool" },
-            { name: "name",   type: "string" },
+            { name: "id",       type: "int64" },
+            { name: "number",   type: "int32" },
+            { name: "admin",    type: "bool" },
+            { name: "name",     type: "string" },
             { name: "score",    type: "float" },
             { name: "priority", type: "double" },
             { name: "size",     type: "uint32" },
             { name: "length",   type: "uint64" },
             { name: "record",   type: "bytes" },
-            { name: "flag",   type: ".south37.users_prototype.Flag" },
+            { name: "flag",     type: ".south37.users_prototype.Flag" },
           ],
           assocs: [
             {
               name:       "profile",
-              type:       "has_one",
+              kind:       "has_one",
               class_name: "Profile"
             }
           ]
