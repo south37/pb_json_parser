@@ -7,7 +7,16 @@ describe PbJsonParser do
         {
           name: "User",
           fields: [
-            "id",
+            { name: "id",       type: "int64" },
+            { name: "number",   type: "int32" },
+            { name: "admin",    type: "bool" },
+            { name: "name",     type: "string" },
+            { name: "score",    type: "float" },
+            { name: "priority", type: "double" },
+            { name: "size",     type: "uint32" },
+            { name: "length",   type: "uint64" },
+            { name: "record",   type: "bytes" },
+            { name: "flag",     type: ".south37.users_prototype.Flag" },
           ],
           assocs: [
             {
@@ -20,8 +29,8 @@ describe PbJsonParser do
         {
           name: "Profile",
           fields: [
-            "id",
-            "birthday",
+            { name: "id",       type: "int32" },
+            { name: "birthday", type: ".google.protobuf.Timestamp" }
           ],
           assocs: []
         },
@@ -31,7 +40,16 @@ describe PbJsonParser do
         {
           name: "User",
           fields: [
-            "id",
+            { name: "id",     type: "int64" },
+            { name: "number", type: "int32" },
+            { name: "admin",  type: "bool" },
+            { name: "name",   type: "string" },
+            { name: "score",    type: "float" },
+            { name: "priority", type: "double" },
+            { name: "size",     type: "uint32" },
+            { name: "length",   type: "uint64" },
+            { name: "record",   type: "bytes" },
+            { name: "flag",   type: ".south37.users_prototype.Flag" },
           ],
           assocs: [
             {
@@ -44,7 +62,7 @@ describe PbJsonParser do
         {
           name: "Profile",
           fields: [
-            "id",
+            { name: "id", type: "int32" },
           ],
           assocs: []
         },
@@ -61,13 +79,28 @@ describe PbJsonParser do
   # import "google/protobuf/timestamp.proto";
   #
   # message User {
-  #   int32 id = 1;
-  #   Profile profile = 2;
+  #   int64 id = 1;
+  #   int32 number = 2;
+  #   bool admin = 3;
+  #   string name = 4;
+  #   float score = 5;
+  #   double priority = 6;
+  #   uint32 size = 7;
+  #   uint64 length = 8;
+  #   bytes record = 9;
+  #   Profile profile = 10;
+  #   Flag flag = 11;
   # }
   #
   # message Profile {
   #   int32 id = 1;
   #   google.protobuf.Timestamp birthday = 2;
+  # }
+  #
+  # enum Flag {
+  #   FLAG_UNSPECIFIED = 0;
+  #   ON = 1;
+  #   OFF = 2;
   # }
   #
   def json
@@ -130,16 +163,80 @@ describe PbJsonParser do
               "name": "id",
               "number": 1,
               "label": 1,
-              "type": 5,
+              "type": 3,
               "json_name": "id"
             },
             {
-              "name": "profile",
+              "name": "number",
               "number": 2,
+              "label": 1,
+              "type": 5,
+              "json_name": "number"
+            },
+            {
+              "name": "admin",
+              "number": 3,
+              "label": 1,
+              "type": 8,
+              "json_name": "admin"
+            },
+            {
+              "name": "name",
+              "number": 4,
+              "label": 1,
+              "type": 9,
+              "json_name": "name"
+            },
+            {
+              "name": "score",
+              "number": 5,
+              "label": 1,
+              "type": 2,
+              "json_name": "score"
+            },
+            {
+              "name": "priority",
+              "number": 6,
+              "label": 1,
+              "type": 1,
+              "json_name": "priority"
+            },
+            {
+              "name": "size",
+              "number": 7,
+              "label": 1,
+              "type": 13,
+              "json_name": "size"
+            },
+            {
+              "name": "length",
+              "number": 8,
+              "label": 1,
+              "type": 4,
+              "json_name": "length"
+            },
+            {
+              "name": "record",
+              "number": 9,
+              "label": 1,
+              "type": 12,
+              "json_name": "record"
+            },
+            {
+              "name": "profile",
+              "number": 10,
               "label": 1,
               "type": 11,
               "type_name": ".south37.users_prototype.Profile",
               "json_name": "profile"
+            },
+            {
+              "name": "flag",
+              "number": 11,
+              "label": 1,
+              "type": 14,
+              "type_name": ".south37.users_prototype.Flag",
+              "json_name": "flag"
             }
           ]
         },
@@ -160,6 +257,25 @@ describe PbJsonParser do
               "type": 11,
               "type_name": ".google.protobuf.Timestamp",
               "json_name": "birthday"
+            }
+          ]
+        }
+      ],
+      "enum_type": [
+        {
+          "name": "Flag",
+          "value": [
+            {
+              "name": "FLAG_UNSPECIFIED",
+              "number": 0
+            },
+            {
+              "name": "ON",
+              "number": 1
+            },
+            {
+              "name": "OFF",
+              "number": 2
             }
           ]
         }

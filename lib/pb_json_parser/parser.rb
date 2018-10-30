@@ -41,10 +41,12 @@ module PbJsonParser
           if is_assoc?(f)
             m.push_assoc(parse_assoc(f))
           else
-            m.push_field(AST::Field.new(name: f["name"]))
+            m.push_field(parse_field(f, type: f["type_name"]))
           end
+        when 14  # type: TYPE_ENUM
+          m.push_field(parse_field(f, type: f["type_name"]))
         else
-          m.push_field(AST::Field.new(name: f["name"]))
+          m.push_field(parse_field(f, type: to_type(f["type"])))
         end
       end
 
@@ -85,6 +87,46 @@ module PbJsonParser
     def field_message_type(field)
       # NOTE: field["type_name"] is `.<package>.<message_type>`.
       field["type_name"][(@package.size + 2)..-1]
+    end
+
+    # @param [{ String => Any }] field
+    # @param [String] type
+    # @return [AST::Field]
+    def parse_field(field, type:)
+      AST::Field.new(name: field["name"], type: type)
+    end
+
+    # @param [Integer] type
+    # @return [String]
+    def to_type(type)
+      case type
+      when 1
+        'double'
+      when 2
+        'float'
+      when 3
+        'int64'
+      when 4
+        'uint64'
+      when 5
+        'int32'
+      when 8
+        'bool'
+      when 9
+        'string'
+      when 12
+        'bytes'
+      when 13
+        'uint32'
+      when 17
+        'sint32'
+      when 18
+        'sint64'
+      else
+        # TODO(south37) Handle other scalar value types
+        # cf. https://developers.google.com/protocol-buffers/docs/proto#scalar
+        "type[#{type}]"
+      end
     end
 
     # @param [String] json
