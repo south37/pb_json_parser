@@ -23,7 +23,7 @@ module PbJsonParser
       def to_h
         {
           name:   @name,
-          fields: @fields.map(&:name),
+          fields: @fields.map(&:to_h),
           assocs: @assocs.map(&:to_h),
         }
       end
