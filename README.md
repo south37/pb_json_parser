@@ -62,7 +62,7 @@ Finally you can parse the json by `PbJsonParser`.
 ```ruby
 [6] pry(main)> PbJsonParser.parse(json: File.read('./protos/resources.proto.json'), filename: 'resources.proto').map(&:to_h)
 => [
- {:name=>"User", :fields=>[{:name=>"id", :type=>"int32"}], :assocs=>[{:name=>"profile", :type=>"has_one", :class_name=>"Profile"}]},
+ {:name=>"User", :fields=>[{:name=>"id", :type=>"int32"}], :assocs=>[{:name=>"profile", :kind=>"has_one", :class_name=>"Profile"}]},
  {:name=>"Profile", :fields=>[{:name=>"id", :type=>"int32"}, {:name=>"birthday", :type=>".google.protobuf.Timestamp"}], :assocs=>[]}
 ]
 ```
