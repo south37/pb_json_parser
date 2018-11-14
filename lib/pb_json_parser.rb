@@ -8,10 +8,11 @@ module PbJsonParser
     # @param [String] json
     # @param [String] filename
     # @return [<AST::Message>]
-    def parse(json:, filename:, skip_fields: [])
+    def parse(json:, filename:, skip_fields: [], field_types: [])
       parser = Parser.new(json: json, filename: filename)
       parser.configure do |c|
         c.skip_fields = skip_fields
+        c.field_types = field_types
       end
       parser.parse
     end
