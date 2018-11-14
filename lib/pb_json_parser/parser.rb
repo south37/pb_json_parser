@@ -15,7 +15,7 @@ module PbJsonParser
     def parse
       r = []
       @data["message_type"].each do |m_type|
-        next if m_type["name"].in?(@config.field_types)
+        next if @config.field_types.include?(m_type["name"])
         m = parse_message(m_type)
         r.push m
       end
@@ -76,7 +76,7 @@ module PbJsonParser
     # @return [bool]
     def is_assoc?(field)
       return false if field_package(field) != @package
-      return false if field_message_type(field).in?(@config.field_types)
+      return false if @config.field_types.include?(field_message_type(field))
       true
     end
 
